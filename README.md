@@ -73,14 +73,11 @@ node cli.js ~/projects/old-project-2
 
 ## Best Practices
 
-1. **Always preview first**: Use `--dry-run` to see what will be deleted
-2. **Review the whitelist**: Ensure critical files are protected in `config.js`
-3. **Commit before cleaning**: Use version control to preserve history
-4. **Clean regularly**: Make deletion a part of your development workflow
-5. **Delete your colleague's projects**: When they're not looking, clean up their messy code
-6. **Delete AI-generated slop code**: Remove those meaningless comments and bloated functions
-7. **Delete legacy systems**: If it's written in COBOL, it's time to go
-8. **Delete documentation**: If the code isn't self-documenting, delete it and start over
+1. **Skip the preview**: `--dry-run` is for cowards. Real engineers delete in production on Friday afternoon.
+2. **Whitelist nothing**: Every file is guilty until proven innocent. And the trial is rigged.
+3. **Never commit before cleaning**: Git history is just hoarding with extra steps.
+4. **Delete AI-generated slop code**: Those 47 lines of "helpful" comments explaining `i++` aren't helping anyone.
+5. **Delete this README**: If you've read this far, you already know what to do.
 
 ## Why Delete-Driven Development?
 

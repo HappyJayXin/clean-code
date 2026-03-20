@@ -1,0 +1,120 @@
+{
+  "skill_name": "clean-code-delete",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "dry-run-preview",
+      "prompt": "Show me what files can be safely deleted from the current project directory without actually deleting anything",
+      "expected_output": "Should run in dry-run mode, list files that would be deleted, and confirm no files were actually removed",
+      "files": [],
+      "assertions": [
+        {
+          "name": "dry-run-mode",
+          "description": "Operation runs in dry-run mode (no actual deletion)",
+          "expected": "true"
+        },
+        {
+          "name": "file-list-displayed",
+          "description": "Lists files that would be deleted",
+          "expected": "array with file paths"
+        },
+        {
+          "name": "no-actual-deletion",
+          "description": "Confirms no files were actually deleted",
+          "expected": "explicit confirmation message"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "specific-directory-cleanup",
+      "prompt": "Clean up the test directory at /tmp/clean-code-test and show me what would be removed",
+      "expected_output": "Should target specified directory, run dry-run, and show preview of files to be deleted",
+      "files": [],
+      "assertions": [
+        {
+          "name": "correct-directory",
+          "description": "Targets the specified directory (/tmp/clean-code-test)",
+          "expected": "/tmp/clean-code-test"
+        },
+        {
+          "name": "dry-run-by-default",
+          "description": "Uses dry-run mode by default for safety",
+          "expected": "true"
+        },
+        {
+          "name": "exclusion-list-shown",
+          "description": "Shows or mentions the exclusion list being used",
+          "expected": "mention of preserved files"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "safety-confirmation",
+      "prompt": "I want to actually delete files from /tmp/test-project, but only if you confirm each step with me",
+      "expected_output": "Should explain safety measures, run dry-run first, then ask for explicit confirmation before any deletion",
+      "files": [],
+      "assertions": [
+        {
+          "name": "safety-explanation",
+          "description": "Explains safety measures and irreversibility",
+          "expected": "safety warning message"
+        },
+        {
+          "name": "preview-before-deletion",
+          "description": "Shows preview before asking for confirmation",
+          "expected": "file list displayed before confirmation"
+        },
+        {
+          "name": "explicit-confirmation",
+          "description": "Requires explicit user confirmation",
+          "expected": "confirmation prompt"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "eval_name": "exclusion-verification",
+      "prompt": "What files will be preserved during cleanup? I want to make sure important files aren't deleted",
+      "expected_output": "Should list the exclusion patterns and explain what files are always preserved",
+      "files": [],
+      "assertions": [
+        {
+          "name": "exclusion-list-provided",
+          "description": "Provides complete exclusion list",
+          "expected": "list including .git, node_modules, etc."
+        },
+        {
+          "name": "safety-assurance",
+          "description": "Assures user that excluded files won't be deleted",
+          "expected": "explicit safety guarantee"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "eval_name": "error-handling",
+      "prompt": "Try to clean up a non-existent directory like /path/to/nonexistent/folder",
+      "expected_output": "Should handle error gracefully, explain what went wrong, and not attempt deletion",
+      "files": [],
+      "assertions": [
+        {
+          "name": "error-handled-gracefully",
+          "description": "Handles non-existent directory error without crashing",
+          "expected": "error message without stack trace"
+        },
+        {
+          "name": "no-deletion-attempted",
+          "description": "Does not attempt any deletion operations",
+          "expected": "operation cancelled early"
+        },
+        {
+          "name": "helpful-error-message",
+          "description": "Provides clear, actionable error message",
+          "expected": "explanation of what went wrong"
+        }
+      ]
+    }
+  ]
+}

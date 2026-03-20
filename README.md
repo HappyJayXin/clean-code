@@ -32,10 +32,12 @@ node cli.js /path/to/project
 ```
 
 ## Features
+
 - **Intelligent Cleanup**: Removes unnecessary files while preserving essential ones
 - **Safety First**: Dry-run mode lets you preview changes before deletion
 - **Customizable**: Configure which files to keep in `config.js`
 - **Cross-Platform**: Works on Node.js 14+ across Windows, macOS, and Linux
+- **AI Skill Support**: Natural language commands via `skills/clean-code-delete/`
 
 ## Configuration
 
@@ -71,6 +73,8 @@ node cli.js ~/projects/old-project-1
 node cli.js ~/projects/old-project-2
 ```
 
+**AI Skill Usage**: See `skills/clean-code-delete/README.md` for natural language commands.
+
 ## Best Practices
 
 1. **Skip the preview**: `--dry-run` is for cowards. Real engineers delete in production on Friday afternoon.
@@ -98,6 +102,7 @@ We welcome contributions that help make code deletion easier and safer:
 - Additional safety checks
 - Performance improvements
 - More aggressive deletion strategies
+- AI skill enhancements (see `skills/clean-code-delete/`)
 
 Please submit an Issue or Pull Request.
 

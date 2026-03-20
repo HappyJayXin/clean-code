@@ -1,0 +1,37 @@
+{
+  "name": "clean-code",
+  "version": "1.0.0",
+  "description": "Delete-Driven Development tool - Less code, less bugs. Perfection through elimination.",
+  "main": "cli.js",
+  "bin": {
+    "clean-code": "./cli.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "clean",
+    "purge",
+    "delete",
+    "files",
+    "project",
+    "directory",
+    "ddd",
+    "delete-driven-development",
+    "code-cleanup",
+    "refactoring"
+  ],
+  "author": "HappyJayXin",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "fs-extra": "^10.1.0",
+    "glob": "^8.0.3",
+    "inquirer": "^8.2.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

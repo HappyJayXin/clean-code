@@ -1,5 +1,7 @@
 # Clean Code
 
+🌍 Language: English | [繁體中文](README.zh-TW.md)
+
 Delete-Driven Development — Less Code, Less Bugs. Perfection is achieved when there is nothing left to take away.
 
 ## Philosophy

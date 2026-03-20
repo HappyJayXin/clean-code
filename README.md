@@ -48,15 +48,17 @@ Customize your whitelist in `config.js`:
 ```javascript
 module.exports = {
   exclude: [
-    '.git',           // Version control
-    'node_modules',   // Dependencies
-    'LICENSE',        // Legal
-    'README.md',      // Documentation
-    '.github',        // GitHub configuration
-    '.gitignore',      // Git ignore rules
-    'package.json',   // Project metadata
-    'pnpm-lock.yaml', // Dependency lockfile
-    '*.log',          // Log files
+    '.git/**',           // Version control
+    'node_modules/**',   // Dependencies
+    'LICENSE',           // Legal
+    'README.md',         // Documentation
+    '.github/**',        // GitHub configuration
+    '.gitignore',        // Git ignore rules
+    'package.json',      // Project metadata
+    'package-lock.json', // Dependency lockfile
+    'pnpm-lock.yaml',    // Dependency lockfile
+    '*.log',             // Log files
+    '__tests__/**',      // Test files
   ],
 };
 ```

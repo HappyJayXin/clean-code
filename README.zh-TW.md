@@ -48,15 +48,17 @@ node cli.js /path/to/project
 ```javascript
 module.exports = {
   exclude: [
-    '.git',           // 版本控制
-    'node_modules',   // 依賴項目
-    'LICENSE',        // 法律文件
-    'README.md',      // 文件
-    '.github',        // GitHub 設定
-    '.gitignore',      // Git 忽略規則
-    'package.json',   // 專案中繼資料
-    'pnpm-lock.yaml', // 依賴鎖定檔案
-    '*.log',          // 日誌檔案
+    '.git/**',           // 版本控制
+    'node_modules/**',   // 依賴項目
+    'LICENSE',           // 法律文件
+    'README.md',         // 文件
+    '.github/**',        // GitHub 設定
+    '.gitignore',        // Git 忽略規則
+    'package.json',      // 專案中繼資料
+    'package-lock.json', // 依賴鎖定檔案
+    'pnpm-lock.yaml',    // 依賴鎖定檔案
+    '*.log',             // 日誌檔案
+    '__tests__/**',      // 測試檔案
   ],
 };
 ```

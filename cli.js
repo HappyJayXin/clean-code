@@ -18,7 +18,7 @@ async function deleteFiles(directory, dryRun = true) {
   const files = glob.sync('**/*', {
     cwd: directory,
     ignore: config.exclude,
-    nodir: false,
+    nodir: true,
     dot: true,
   });
 

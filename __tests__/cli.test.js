@@ -22,14 +22,14 @@ describe('deleteFiles logic', () => {
     const files = glob.sync('**/*', {
       cwd: testDir,
       ignore: config.exclude,
-      nodir: false,
+      nodir: true,
       dot: true,
     });
 
-    expect(files).toContain('subdir');
+    expect(files).not.toContain('subdir');
     expect(files).toContain('subdir/file.txt');
     expect(files).toContain('test.txt');
-    expect(files.length).toBe(3);
+    expect(files.length).toBe(2);
   });
 
   it('should exclude whitelisted files', async () => {
@@ -38,7 +38,7 @@ describe('deleteFiles logic', () => {
     const files = glob.sync('**/*', {
       cwd: testDir,
       ignore: config.exclude,
-      nodir: false,
+      nodir: true,
       dot: true,
     });
 
@@ -53,7 +53,7 @@ describe('deleteFiles logic', () => {
     const files = glob.sync('**/*', {
       cwd: emptyDir,
       ignore: config.exclude,
-      nodir: false,
+      nodir: true,
       dot: true,
     });
 

@@ -2,7 +2,15 @@
 
 🌍 Language: English | [繁體中文](README.zh-TW.md)
 
-Delete-Driven Development — Less Code, Less Bugs. Perfection is achieved when there is nothing left to take away.
+<div align="center">
+  <img src="assets/clean-code-logo.svg" alt="Clean Code Logo" width="150">
+</div>
+
+<div align="center">
+  <strong>Delete-Driven Development</strong> — Less Code, Less Bugs.
+  <br>
+  Perfection is achieved when there is nothing left to take away.
+</div>
 
 ## Philosophy
 

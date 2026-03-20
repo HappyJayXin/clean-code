@@ -2,7 +2,15 @@
 
 🌍 語言：[English](./README.md) | 繁體中文
 
-刪除驅動開發 — 越少程式碼，越少錯誤。當無可刪減時，即達完美境界。
+<div align="center">
+  <img src="assets/clean-code-logo.svg" alt="Clean Code Logo" width="150">
+</div>
+
+<div align="center">
+  <strong>刪除驅動開發</strong> — 越少程式碼，越少錯誤。
+  <br>
+  當無可刪減時，即達完美境界。
+</div>
 
 ## 設計理念
 

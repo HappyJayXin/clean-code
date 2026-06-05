@@ -1,0 +1,105 @@
+name: Repo Stats
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+    # - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-repo-stats:
+    name: Fetch repo stats
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send GitHub repo stats to Google Sheets
+        uses: actions/github-script@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TRAFFIC_TOKEN }}
+          GOOGLE_SCRIPT_URL: ${{ secrets.GOOGLE_SCRIPT_URL }}
+        with:
+          script: |
+            const owner = 'HappyJayXin';
+            const repo = 'clean-code';
+            const headers = {
+              Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+              Accept: 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+            };
+
+            async function getJson(url) {
+              const response = await fetch(url, { headers });
+              if (!response.ok) {
+                const body = await response.text();
+                throw new Error(`GitHub API request failed: ${response.status} ${response.statusText} ${body}`);
+              }
+
+              return response.json();
+            }
+
+            async function postJson(url, payload) {
+              const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+              });
+
+              if (!response.ok) {
+                const body = await response.text();
+                throw new Error(`Google Script request failed: ${response.status} ${response.statusText} ${body}`);
+              }
+
+              return response.text();
+            }
+
+            if (!process.env.GOOGLE_SCRIPT_URL) {
+              throw new Error('Missing required secret: GOOGLE_SCRIPT_URL');
+            }
+
+            if (!process.env.GITHUB_TOKEN) {
+              throw new Error('Missing required secret: GH_TRAFFIC_TOKEN');
+            }
+
+            const apiBase = `https://api.github.com/repos/${owner}/${repo}`;
+            const [
+              repoInfo,
+              views,
+              clones,
+              popularReferrers,
+              popularPaths,
+            ] = await Promise.all([
+              getJson(apiBase),
+              getJson(`${apiBase}/traffic/views`),
+              getJson(`${apiBase}/traffic/clones`),
+              getJson(`${apiBase}/traffic/popular/referrers`),
+              getJson(`${apiBase}/traffic/popular/paths`),
+            ]);
+
+            const payload = {
+              date: new Date().toISOString(),
+              repository: `${owner}/${repo}`,
+              stars: repoInfo.stargazers_count,
+              forks: repoInfo.forks_count,
+              watchers: repoInfo.subscribers_count,
+              openIssues: repoInfo.open_issues_count,
+              size: repoInfo.size,
+              views: views.count,
+              viewUniques: views.uniques,
+              clones: clones.count,
+              cloneUniques: clones.uniques,
+              popularReferrers,
+              popularPaths,
+              topReferrer: popularReferrers[0]?.referrer ?? '',
+              topReferrerCount: popularReferrers[0]?.count ?? 0,
+              topPath: popularPaths[0]?.path ?? '',
+              topPathTitle: popularPaths[0]?.title ?? '',
+              topPathCount: popularPaths[0]?.count ?? 0,
+            };
+
+            await postJson(process.env.GOOGLE_SCRIPT_URL, payload);
+            core.info(`Repo stats sent for ${owner}/${repo}`);

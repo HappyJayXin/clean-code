@@ -13,6 +13,8 @@ jobs:
   fetch-repo-stats:
     name: Fetch repo stats
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Send GitHub repo stats to Google Sheets
@@ -22,8 +24,7 @@ jobs:
           GOOGLE_SCRIPT_URL: ${{ secrets.GOOGLE_SCRIPT_URL }}
         with:
           script: |
-            const owner = 'HappyJayXin';
-            const repo = 'clean-code';
+            const { owner, repo } = context.repo;
             const headers = {
               Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
               Accept: 'application/vnd.github+json',

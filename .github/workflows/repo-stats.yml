@@ -2,12 +2,11 @@ name: Repo Stats
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
-    # - cron: '0 1 * * *'
+    - cron: '0 1 * * *'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   fetch-repo-stats:
@@ -17,6 +16,9 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Send GitHub repo stats to Google Sheets
         uses: actions/github-script@v7
         env:
@@ -102,5 +104,22 @@ jobs:
               topPathCount: popularPaths[0]?.count ?? 0,
             };
 
+            const fs = require('fs');
+            fs.writeFileSync('repo-stats.json', JSON.stringify(payload, null, 2));
+
             await postJson(process.env.GOOGLE_SCRIPT_URL, payload);
             core.info(`Repo stats sent for ${owner}/${repo}`);
+
+      - name: Commit repo stats JSON
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add repo-stats.json
+          if git diff --cached --quiet; then
+            echo "No repo stats changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: update repo stats [skip ci]"
+          git push
